@@ -1,0 +1,30 @@
+# Call scripts. One scenario is picked per call, weighted by `weight`.
+# `audio` paths are relative to CXAS_AUDIO_DIR. `text` is what the caller says:
+# tools/tts_generate.py turns it into the WAV, and it documents the script.
+# Replace these with the real caller journeys of your agent.
+scenarios:
+  - name: check_order_status
+    weight: 3
+    variables:                 # optional session variables sent after config
+      caller_number: "+15555550100"
+    turns:
+      - audio: order_status/01_intent.wav
+        text: "Hi, I'd like to check the status of my order."
+      - audio: order_status/02_order_number.wav
+        text: "It's order number four five seven, two one nine, eight."
+        expect_agent_contains: []   # e.g. ["order"] - checked only if the agent returns text
+      - audio: order_status/03_thanks.wav
+        text: "Great, thank you. That's all, goodbye."
+
+  - name: pin_via_dtmf
+    weight: 1
+    turns:
+      - audio: pin/01_intent.wav
+        text: "I need to update my billing address."
+      - dtmf: "1234#"
+        label: pin_entry
+      - audio: pin/02_address.wav
+        text: "The new address is one twenty three Main Street, Springfield."
+        pause_ms: 1200
+      - audio: pin/03_bye.wav
+        text: "No, that's everything. Bye."

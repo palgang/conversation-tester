@@ -1,0 +1,9 @@
+google-cloud-ces>=0.7.4
+grpcio>=1.60
+locust>=2.30
+numpy>=1.26
+PyYAML>=6.0
+python-dotenv>=1.0
+# optional
+# scipy>=1.11                    # better resampling if your WAVs are not already at the target rate
+# google-cloud-texttospeech>=2.16  # tools/tts_generate.py
